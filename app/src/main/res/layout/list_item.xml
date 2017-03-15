@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:padding="12dip">
+
+    <TextView
+        android:id="@+id/storyPoints"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="25"
+        android:gravity="center"
+        android:fontFamily="sans-serif-medium"
+        tools:text="683" />
+
+    <LinearLayout
+        android:id="@+id/titleAuthorContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="25"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            tools:text="Keep the Internet Open"/>
+
+        <!--TODO: change author font, color, size -->
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dip"
+            android:fontFamily="sans-serif-medium"
+            tools:text="firloop"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/created_at"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="25"
+        android:gravity="center"
+        tools:text="8:36 PM"/>
+</LinearLayout>
