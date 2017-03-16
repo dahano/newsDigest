@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="?android:attr/listPreferredItemHeight"
+    android:background="@drawable/gradient"
     android:padding="12dip">
 
     <TextView
@@ -14,7 +15,7 @@
         android:layout_weight="25"
         android:gravity="center"
         android:fontFamily="sans-serif-medium"
-        tools:text="683" />
+        tools:text="726" />
 
     <LinearLayout
         android:id="@+id/titleAuthorContainer"
@@ -28,15 +29,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
             tools:text="Keep the Internet Open"/>
 
-        <!--TODO: change author font, color, size -->
         <TextView
             android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="6dip"
             android:fontFamily="sans-serif-medium"
+            android:textStyle="italic"
             tools:text="firloop"/>
     </LinearLayout>
 

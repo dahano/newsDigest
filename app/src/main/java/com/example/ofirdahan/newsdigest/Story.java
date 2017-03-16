@@ -1,41 +1,43 @@
 package com.example.ofirdahan.newsdigest;
 
+import java.util.List;
 
 public class Story {
-    private String mCreatedAt;
-    private String mTitle;
-    private String mAuthor;
-    private String mUrl;
-    private int mPoints;
+    private List<Story> hits;
+    private String created_at_i;
+    private String title;
+    private String author;
+    private String url;
+    private int points;
 
-    public Story(String mCreatedAt, String mTitle, String mAuthor, String mUrl, int mPoints) {
-        this.mCreatedAt = mCreatedAt;
-        this.mTitle = mTitle;
-        this.mAuthor = mAuthor;
-        this.mUrl = mUrl;
-        this.mPoints = mPoints;
+    public Story(String created_at_i, String title, String author, String url, int points) {
+        this.created_at_i = created_at_i;
+        this.title = title;
+        this.author = author;
+        this.url = url;
+        this.points = points;
     }
 
     public String getCreatedAt() {
-        return mCreatedAt;
+        return created_at_i;
     }
 
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
 
     public String getAuthor() {
-        return mAuthor;
+        return author;
     }
 
     public String getUrl() {
-        return mUrl;
+        return url;
     }
 
     public int getPoints() {
-        return mPoints;
+        return points;
     }
 
 }

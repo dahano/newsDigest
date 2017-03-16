@@ -3,10 +3,14 @@ package com.example.ofirdahan.newsdigest;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,17 +22,43 @@ import java.util.Locale;
 
 public class StoryParser {
 
-    //TODO: Import more examples for list
-    private static final String SAMPLE_JSON_RESPONSE = "{\"hits\":[{" +
-            "\"created_at_i\":\"1489500616\",\"title\":\"Keep the Internet Open\",\"url\":\"http://blog.samaltman.com/keep-the-internet-open\",\"author\":\"firloop\",\"points\":717}" + "]}";
+    public static final String SAMPLE_JSON_RESPONSE = "{\n" +
+            "\t\"hits\": [{\n" +
+            "\t\t\"created_at\": \"2017-03-15T16:16:22.000Z\",\n" +
+            "\t\t\"title\": \"GitLab acquires Gitter, will open-source the code\",\n" +
+            "\t\t\"url\": \"http://venturebeat.com/2017/03/15/gitlab-acquires-software-chat-startup-gitter-will-open-source-the-code/\",\n" +
+            "\t\t\"author\": \"marcinkuzminski\",\n" +
+            "\t\t\"points\": 739,\n" +
+            "\t\t\"story_text\": null,\n" +
+            "\t\t\"comment_text\": null,\n" +
+            "\t\t\"num_comments\": 237,\n" +
+            "\t\t\"story_id\": null,\n" +
+            "\t\t\"story_title\": null,\n" +
+            "\t\t\"story_url\": null,\n" +
+            "\t\t\"parent_id\": null,\n" +
+            "\t\t\"created_at_i\": 1489594582,\n" +
+            "\t\t\"_tags\": [\"story\", \"author_marcinkuzminski\", \"story_13877156\", \"front_page\"],\n" +
+            "\t\t\"objectID\": \"13877156\"\n" +
+            "\t}]\n" +
+            "}";
 
-    private StoryParser(){}
+    private StoryParser()  {}
+
+    public static ArrayList<Story> jsonParsedStories() throws IOException{
+
+        ArrayList<Story> parsedStories = new ArrayList<>();
+        Moshi moshi = new Moshi.Builder().build();
+        JsonAdapter<Story> jsonAdapter = moshi.adapter(Story.class);
+
+        Story story = jsonAdapter.fromJson(SAMPLE_JSON_RESPONSE);
+        parsedStories.add(story);
+        return parsedStories;
+    }
+
 
     public static ArrayList<Story> parseStories(){
 
         ArrayList<Story> stories = new ArrayList<>();
-
-
 
         try{
             JSONObject root = new JSONObject(SAMPLE_JSON_RESPONSE);
@@ -36,7 +66,6 @@ public class StoryParser {
 
             Date dateObj;
 
-            //TODO: Fix date format
             SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
 
             for(int i=0; i < hits.length(); i++){

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ArrayList<Story> stories = StoryParser.parseStories();
+
 
         final ListView storiesListView = (ListView) findViewById(R.id.list);
         final StoryAdapter storyAdapter = new StoryAdapter(this, stories);
