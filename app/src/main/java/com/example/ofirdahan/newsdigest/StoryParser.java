@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -42,17 +43,16 @@ public class StoryParser {
             "\t}]\n" +
             "}";
 
-    private StoryParser()  {}
+    private StoryParser() throws IOException {}
 
-    public static ArrayList<Story> jsonParsedStories() throws IOException{
-
-        ArrayList<Story> parsedStories = new ArrayList<>();
+    public static List<Story> jsonParsedStories() throws IOException{
         Moshi moshi = new Moshi.Builder().build();
-        JsonAdapter<Story> jsonAdapter = moshi.adapter(Story.class);
+        JsonAdapter<Hits> jsonAdapter = moshi.adapter(Hits.class);
+        SampleJSON sampleJSON = new SampleJSON();
 
-        Story story = jsonAdapter.fromJson(SAMPLE_JSON_RESPONSE);
-        parsedStories.add(story);
-        return parsedStories;
+        Hits hits = jsonAdapter.fromJson(sampleJSON.getSampleJsonResponse());
+
+        return hits.getHits();
     }
 
 
@@ -80,7 +80,7 @@ public class StoryParser {
                 String author = story.getString("author");
                 int points = story.getInt("points");
 
-                stories.add(new Story(dateToDisplay,title,author,url,points));
+//                stories.add(new Story(dateToDisplay,title,author,url,points));
             }
         } catch (JSONException e) {
             Log.e("Story Parser", "Something broke while trying to parse the JSON text", e);

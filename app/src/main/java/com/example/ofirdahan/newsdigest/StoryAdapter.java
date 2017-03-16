@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by ofirdahan on 3/14/17.
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 
 public class StoryAdapter extends ArrayAdapter<Story> {
 
-    public StoryAdapter(Activity context, ArrayList<Story> stories){
+    public StoryAdapter(Activity context, List<Story> stories){
         super(context,0,stories);
     }
 
@@ -40,7 +43,8 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         author.setText(currentStory.getAuthor());
 
         TextView createdAt = (TextView) listItemView.findViewById(R.id.created_at);
-        createdAt.setText(currentStory.getCreatedAt());
+
+        createdAt.setText(currentStory.getDayOfTheWeek().toString());
 
         return listItemView;
     }

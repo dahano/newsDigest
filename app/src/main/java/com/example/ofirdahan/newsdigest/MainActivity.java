@@ -9,7 +9,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Story> stories = StoryParser.parseStories();
+        List<Story> stories = null;
+        try {
+            stories = StoryParser.jsonParsedStories();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         final ListView storiesListView = (ListView) findViewById(R.id.list);

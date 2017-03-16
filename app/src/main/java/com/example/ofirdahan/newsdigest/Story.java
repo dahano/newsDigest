@@ -1,24 +1,19 @@
 package com.example.ofirdahan.newsdigest;
 
-import java.util.List;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class Story {
-    private List<Story> hits;
-    private String created_at_i;
-    private String title;
-    private String author;
-    private String url;
-    private int points;
+    Long created_at_i;
+    String title;
+    String author;
+    String url;
+    int points;
 
-    public Story(String created_at_i, String title, String author, String url, int points) {
-        this.created_at_i = created_at_i;
-        this.title = title;
-        this.author = author;
-        this.url = url;
-        this.points = points;
-    }
 
-    public String getCreatedAt() {
+    public Long getCreatedAt() {
         return created_at_i;
     }
 
@@ -38,6 +33,12 @@ public class Story {
 
     public int getPoints() {
         return points;
+    }
+
+    public String getDayOfTheWeek(){
+        SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
+        Date dateTime = new Date(created_at_i * 1000);
+        return formatter.format(dateTime);
     }
 
 }
