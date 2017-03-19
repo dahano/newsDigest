@@ -1,4 +1,4 @@
-package com.example.ofirdahan.newsdigest;
+package com.example.ofirdahan.newsdigest.Adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.example.ofirdahan.newsdigest.Models.Story;
+import com.example.ofirdahan.newsdigest.R;
+
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by ofirdahan on 3/14/17.

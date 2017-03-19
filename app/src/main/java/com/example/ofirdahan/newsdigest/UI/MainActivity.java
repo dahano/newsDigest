@@ -1,4 +1,4 @@
-package com.example.ofirdahan.newsdigest;
+package com.example.ofirdahan.newsdigest.UI;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.ofirdahan.newsdigest.Adapters.StoryAdapter;
+import com.example.ofirdahan.newsdigest.Adapters.StoryParser;
+import com.example.ofirdahan.newsdigest.Models.Story;
+import com.example.ofirdahan.newsdigest.R;
+
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 

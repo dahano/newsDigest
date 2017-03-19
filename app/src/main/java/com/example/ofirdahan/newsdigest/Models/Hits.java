@@ -1,6 +1,4 @@
-package com.example.ofirdahan.newsdigest;
-
-import com.squareup.moshi.Json;
+package com.example.ofirdahan.newsdigest.Models;
 
 import java.util.List;
 

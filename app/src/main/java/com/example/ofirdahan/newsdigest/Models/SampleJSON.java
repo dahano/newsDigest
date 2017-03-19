@@ -1,4 +1,4 @@
-package com.example.ofirdahan.newsdigest;
+package com.example.ofirdahan.newsdigest.Models;
 
 /**
  * Created by ofirdahan on 3/16/17.

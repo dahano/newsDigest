@@ -1,4 +1,4 @@
-package com.example.ofirdahan.newsdigest;
+package com.example.ofirdahan.newsdigest.Models;
 
 
 import java.text.SimpleDateFormat;
