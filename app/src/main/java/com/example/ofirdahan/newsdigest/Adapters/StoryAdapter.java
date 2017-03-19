@@ -44,7 +44,7 @@ public class StoryAdapter extends ArrayAdapter<Story> {
 
         TextView createdAt = (TextView) listItemView.findViewById(R.id.created_at);
 
-        createdAt.setText(currentStory.getDayOfTheWeek().toString());
+        createdAt.setText(currentStory.getDayOfTheWeek());
 
         return listItemView;
     }

@@ -14,6 +14,7 @@
         android:layout_weight="25"
         android:gravity="center"
         android:fontFamily="sans-serif-medium"
+        android:textColor="@color/points"
         tools:text="726" />
 
     <LinearLayout
@@ -28,8 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/title"
             android:textSize="14sp"
+
             tools:text="Keep the Internet Open"/>
 
         <TextView
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="6dip"
             android:fontFamily="sans-serif-medium"
+            android:textColor="@color/author_text"
             android:textStyle="italic"
             tools:text="firloop"/>
     </LinearLayout>
@@ -48,5 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="25"
         android:gravity="center"
+        android:textColor="@color/time"
         tools:text="8:36 PM"/>
 </LinearLayout>
