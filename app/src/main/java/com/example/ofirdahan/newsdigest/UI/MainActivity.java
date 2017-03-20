@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
         List<Story> stories = null;
+
         try {
             stories = StoryParser.jsonParsedStories();
         } catch (IOException e) {
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         final StoryAdapter storyAdapter = new StoryAdapter(this, stories);
 
         storiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Story currentStory = storyAdapter.getItem(position);
