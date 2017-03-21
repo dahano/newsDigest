@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         TextView createdAt = (TextView) listItemView.findViewById(R.id.created_at);
 
         createdAt.setText(currentStory.getDayOfTheWeek());
+
 
         return listItemView;
     }
