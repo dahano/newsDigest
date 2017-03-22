@@ -31,9 +31,8 @@ public class StoryParser {
     public static List<Story> jsonParsedStories() throws IOException{
         Moshi moshi = new Moshi.Builder().build();
         JsonAdapter<Hits> jsonAdapter = moshi.adapter(Hits.class);
-        SampleJSON sampleJSON = new SampleJSON();
 
-        Hits hits = jsonAdapter.fromJson(sampleJSON.getSampleJsonResponse());
+        Hits hits = jsonAdapter.fromJson("");
 
         return hits.getHits();
     }
