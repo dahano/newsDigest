@@ -55,10 +55,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Hits>> call, Response<List<Hits>> response) {
                 List<Hits> jsonResponseStories = response.body();
-
-                for(Hits json : jsonResponseStories){
-                    System.out.println("JSON: " + json);
-                }
             }
 
             @Override
@@ -92,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), WebActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
+
             }
 
         });
