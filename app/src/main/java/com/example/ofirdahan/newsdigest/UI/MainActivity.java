@@ -1,24 +1,19 @@
 package com.example.ofirdahan.newsdigest.UI;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.ofirdahan.newsdigest.Adapters.RetrofitHttpHandler;
+import com.example.ofirdahan.newsdigest.Adapters.ApiClient;
+import com.example.ofirdahan.newsdigest.Adapters.RetrofitInterface;
 import com.example.ofirdahan.newsdigest.Adapters.StoryAdapter;
 import com.example.ofirdahan.newsdigest.Adapters.StoryParser;
 import com.example.ofirdahan.newsdigest.Models.Hits;
+import com.example.ofirdahan.newsdigest.Models.SampleJSON;
 import com.example.ofirdahan.newsdigest.Models.Story;
 import com.example.ofirdahan.newsdigest.R;
 
@@ -28,38 +23,35 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private String BASE_URL = "https://hn.algolia.com/api/v1/";
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private List<Story> mStories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(MoshiConverterFactory.create())
-                .build();
+        RetrofitInterface retrofitInterface =
+                ApiClient.getClient().create(RetrofitInterface.class);
 
-        RetrofitHttpHandler handler = retrofit.create(RetrofitHttpHandler.class);
+        Call<Story> call = retrofitInterface.listOfHits();
 
-        Call<List<Hits>> hits = handler.listOfHits();
-
-        hits.enqueue(new Callback<List<Hits>>() {
+        call.enqueue(new Callback<Story>() {
 
             @Override
-            public void onResponse(Call<List<Hits>> call, Response<List<Hits>> response) {
-                List<Hits> jsonResponseStories = response.body();
+            public void onResponse(Call<Story> call, Response<Story> response) {
+                mStories = response.body().getHits();
+                Log.d(TAG, "Number of hits: " + mStories.size());
+                Log.d(TAG, "Response Code: " + response.code());
+
             }
 
             @Override
-            public void onFailure(Call<List<Hits>> call, Throwable t) {
-                Log.e(TAG, "Retrofit fuct");
+            public void onFailure(Call<Story> call, Throwable t) {
+                Log.e(TAG, t.toString());
             }
         });
 
@@ -71,16 +63,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //Log.d(TAG, "Number of mStories: " + mStories.size());
 
         final ListView storiesListView = (ListView) findViewById(R.id.list);
         final StoryAdapter storyAdapter = new StoryAdapter(this, stories);
+        storiesListView.setAdapter(storyAdapter);
 
         storiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Story currentStory = storyAdapter.getItem(position);
+                Story currentStory = storyAdapter.getItem(position);
                 Bundle bundle = new Bundle();
                 if (currentStory != null) {
                     bundle.putString("url", currentStory.getUrl());
@@ -93,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        storiesListView.setAdapter(storyAdapter);
     }
 
 }
