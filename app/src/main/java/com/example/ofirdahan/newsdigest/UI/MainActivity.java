@@ -7,13 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.ofirdahan.newsdigest.Adapters.ApiClient;
 import com.example.ofirdahan.newsdigest.Adapters.RetrofitInterface;
 import com.example.ofirdahan.newsdigest.Adapters.StoryAdapter;
 import com.example.ofirdahan.newsdigest.Adapters.StoryParser;
-import com.example.ofirdahan.newsdigest.Models.Hits;
-import com.example.ofirdahan.newsdigest.Models.SampleJSON;
 import com.example.ofirdahan.newsdigest.Models.Story;
 import com.example.ofirdahan.newsdigest.R;
 
@@ -28,12 +27,24 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private List<Story> mStories;
+    private ListView storiesListView;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setNetworkCall();
 
+        mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setIndeterminate(true);
+
+        setStories(mStories);
+
+    }
+
+    private void setNetworkCall() {
         RetrofitInterface retrofitInterface =
                 ApiClient.getClient().create(RetrofitInterface.class);
 
@@ -45,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Story> call, Response<Story> response) {
                 mStories = response.body().getHits();
                 Log.d(TAG, "Number of hits: " + mStories.size());
-                Log.d(TAG, "Response Code: " + response.code());
-
             }
 
             @Override
@@ -54,22 +63,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, t.toString());
             }
         });
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
 
-        List<Story> stories = null;
+    private void setStories(List<Story> stories){
 
-        try {
-            stories = StoryParser.jsonParsedStories();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Log.d(TAG, "Number of mStories: " + mStories.size());
-
-        final ListView storiesListView = (ListView) findViewById(R.id.list);
         final StoryAdapter storyAdapter = new StoryAdapter(this, stories);
+        storiesListView = (ListView) findViewById(R.id.list);
+
         storiesListView.setAdapter(storyAdapter);
 
         storiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Story currentStory = storyAdapter.getItem(position);
@@ -80,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), WebActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
             }
 
         });
