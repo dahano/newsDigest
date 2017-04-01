@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        storiesListView = (ListView) findViewById(R.id.list);
         mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
         setNetworkCall();
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Story> call, Response<Story> response) {
                 setStories(response.body().getHits());
-                Log.d(TAG, "Number of hits: " + mStories.size());
+                //Log.d(TAG, "Number of hits: " + mStories.size());
             }
 
             @Override
@@ -60,10 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setStories(List<Story> stories){
-
         final StoryAdapter storyAdapter = new StoryAdapter(this, stories);
-        storiesListView = (ListView) findViewById(R.id.list);
-
         storiesListView.setAdapter(storyAdapter);
 
         storiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }
 
 
