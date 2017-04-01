@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
         setNetworkCall();
-        setStories(mStories);
 
     }
 
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<Story> call, Response<Story> response) {
-                mStories = response.body().getHits();
+                setStories(response.body().getHits());
                 Log.d(TAG, "Number of hits: " + mStories.size());
             }
 
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         storiesListView.setAdapter(storyAdapter);
 
         storiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Story currentStory = storyAdapter.getItem(position);
@@ -80,9 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
-
         });
-
     }
 
 }
