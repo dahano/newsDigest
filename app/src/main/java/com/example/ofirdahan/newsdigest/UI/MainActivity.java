@@ -12,11 +12,8 @@ import android.widget.ProgressBar;
 import com.example.ofirdahan.newsdigest.Adapters.ApiClient;
 import com.example.ofirdahan.newsdigest.Adapters.RetrofitInterface;
 import com.example.ofirdahan.newsdigest.Adapters.StoryAdapter;
-import com.example.ofirdahan.newsdigest.Adapters.StoryParser;
 import com.example.ofirdahan.newsdigest.Models.Story;
 import com.example.ofirdahan.newsdigest.R;
-
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,17 +31,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setNetworkCall();
-
         mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
-        mProgressBar.setVisibility(View.VISIBLE);
-        mProgressBar.setIndeterminate(true);
-
+        setNetworkCall();
         setStories(mStories);
 
     }
 
     private void setNetworkCall() {
+        mProgressBar.setVisibility(View.VISIBLE);
+
         RetrofitInterface retrofitInterface =
                 ApiClient.getClient().create(RetrofitInterface.class);
 
@@ -63,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, t.toString());
             }
         });
-        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     private void setStories(List<Story> stories){
