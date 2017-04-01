@@ -1,6 +1,7 @@
 package com.example.ofirdahan.newsdigest.Adapters;
 
 import com.example.ofirdahan.newsdigest.Models.Hits;
+import com.example.ofirdahan.newsdigest.Models.Story;
 
 import java.util.List;
 
@@ -12,9 +13,9 @@ import retrofit2.http.GET;
  * Created by ofirdahan on 3/21/17.
  */
 
-public interface RetrofitHttpHandler {
+public interface RetrofitInterface {
     @GET("search?tags=front_page")
-    Call<List<Hits>> listOfHits();
+    Call<Story> listOfHits();
 
 }
 

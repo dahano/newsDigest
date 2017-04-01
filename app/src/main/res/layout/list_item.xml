@@ -7,6 +7,8 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:padding="12dip">
 
+
+
     <TextView
         android:id="@+id/storyPoints"
         android:layout_width="0dp"
@@ -23,6 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="25"
         android:orientation="vertical">
+
+
 
         <TextView
             android:id="@+id/title"
@@ -43,7 +47,10 @@
             android:textColor="@color/author_text"
             android:textStyle="italic"
             tools:text="firloop"/>
+
     </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/created_at"

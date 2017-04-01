@@ -47,7 +47,6 @@ public class StoryAdapter extends ArrayAdapter<Story> {
 
         createdAt.setText(currentStory.getDayOfTheWeek());
 
-
         return listItemView;
     }
 }

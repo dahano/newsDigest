@@ -26,7 +26,7 @@ public class WebActivity extends Activity{
 
         mWebView = (WebView) findViewById(R.id.web_view);
         mWebView.setWebViewClient(new WebViewClient());
-
+        mWebView.getSettings().setJavaScriptEnabled(true);
         if (getIntent().getExtras().getString("url") != null) {
             mWebView.loadUrl(url);
         }
