@@ -1,6 +1,8 @@
 package com.example.ofirdahan.newsdigest.UI;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -14,15 +16,23 @@ import com.example.ofirdahan.newsdigest.R;
  */
 
 public class WebActivity extends Activity{
+    private static final String URL = "url";
     private WebView mWebView;
     public Bundle getBundle = null;
+
+    public static Intent getWebActivityIntent(Context context, String url) {
+        final Bundle bundle = new Bundle();
+        bundle.putString(URL, url);
+        final Intent intent = new Intent(context, WebActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.web_view_activity);
         getBundle = this.getIntent().getExtras();
-        String url = getBundle.getString("url");
+        String url = getBundle.getString(URL);
 
         mWebView = (WebView) findViewById(R.id.web_view);
         mWebView.setWebViewClient(new WebViewClient());
