@@ -34,7 +34,9 @@ public class StoryRecAdapter extends  RecyclerView.Adapter<StoryRecAdapter.Conte
 
     @Override
     public void onBindViewHolder(ContentViewHolder contentViewHolder, int i ){
-        Story story = mStoriesList.get(i);
+        final Story story = mStoriesList.get(i);
+        contentViewHolder.itemView.setOnClickListener(new StoryClickListener(story));
+
         contentViewHolder.mTitle.setText(story.getTitle());
         contentViewHolder.mAuthor.setText(story.getAuthor());
         contentViewHolder.mPoints.setText(story.getPoints());
@@ -45,10 +47,6 @@ public class StoryRecAdapter extends  RecyclerView.Adapter<StoryRecAdapter.Conte
     public ContentViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.list_item, viewGroup, false);
-
-        Story story = mStoriesList.get(i);
-
-        itemView.setOnClickListener(new StoryClickListener(story));
         return new ContentViewHolder(itemView, mStoriesList.get(i));
     }
 
@@ -82,7 +80,6 @@ public class StoryRecAdapter extends  RecyclerView.Adapter<StoryRecAdapter.Conte
         public void onClick(View v) {
             Bundle bundle = new Bundle();
             Intent intent = new Intent(v.getContext(), WebActivity.class);
-            //Intent intent = WebActivity.getWebActivityIntent(v.getContext(), story.getUrl());
             bundle.putString("url", story.getUrl());
             intent.putExtras(bundle);
             v.getContext().startActivity(intent);
