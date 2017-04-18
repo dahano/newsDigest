@@ -20,20 +20,12 @@ public class WebActivity extends Activity{
     private WebView mWebView;
     public Bundle getBundle = null;
 
-    public static Intent getWebActivityIntent(Context context, String url) {
-        final Bundle bundle = new Bundle();
-        bundle.putString(URL, url);
-        final Intent intent = new Intent(context, WebActivity.class);
-        return intent;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.web_view_activity);
         getBundle = this.getIntent().getExtras();
         String url = getBundle.getString(URL);
-
         mWebView = (WebView) findViewById(R.id.web_view);
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
