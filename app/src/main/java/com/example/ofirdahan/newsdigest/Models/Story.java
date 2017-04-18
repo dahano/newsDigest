@@ -26,8 +26,10 @@ public class Story {
         return hits;
     }
 
-    public Long getCreatedAt() {
-        return created_at_i;
+    public String getCreatedAt() {
+        SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
+        Date dateTime = new Date(created_at_i * 1000);
+        return formatter.format(dateTime);
     }
 
 
@@ -40,18 +42,14 @@ public class Story {
         return author;
     }
 
-    public String getUrl() {
+
+    public String getPoints() {
+
+        return String.valueOf(points);
+    }
+
+    public String getUrl(){
         return url;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public String getDayOfTheWeek(){
-        SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
-        Date dateTime = new Date(created_at_i * 1000);
-        return formatter.format(dateTime);
     }
 
 }

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:padding="12dip">
-
-
 
     <TextView
         android:id="@+id/storyPoints"
@@ -20,7 +19,6 @@
         tools:text="726" />
 
     <LinearLayout
-        android:id="@+id/titleAuthorContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="25"
@@ -28,7 +26,7 @@
 
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/storyTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -45,8 +43,6 @@
             tools:text="firloop"/>
 
     </LinearLayout>
-
-
 
     <TextView
         android:id="@+id/created_at"

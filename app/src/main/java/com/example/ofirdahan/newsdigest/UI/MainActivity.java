@@ -1,17 +1,17 @@
 package com.example.ofirdahan.newsdigest.UI;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.ofirdahan.newsdigest.Adapters.ApiClient;
 import com.example.ofirdahan.newsdigest.Adapters.RetrofitInterface;
-import com.example.ofirdahan.newsdigest.Adapters.StoryAdapter;
+import com.example.ofirdahan.newsdigest.Adapters.StoryRecAdapter;
 import com.example.ofirdahan.newsdigest.Models.Story;
 import com.example.ofirdahan.newsdigest.R;
 import java.util.List;
@@ -23,18 +23,20 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private List<Story> mStories;
-    private ListView storiesListView;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
     private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        storiesListView = (ListView) findViewById(R.id.list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerViewList);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
         setNetworkCall();
-
     }
 
     private void setNetworkCall() {
@@ -42,15 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         RetrofitInterface retrofitInterface =
                 ApiClient.getClient().create(RetrofitInterface.class);
-
         Call<Story> call = retrofitInterface.listOfHits();
-
         call.enqueue(new Callback<Story>() {
 
             @Override
             public void onResponse(Call<Story> call, Response<Story> response) {
                 setStories(response.body().getHits());
-                //Log.d(TAG, "Number of hits: " + mStories.size());
             }
 
             @Override
@@ -61,22 +60,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setStories(List<Story> stories){
-        final StoryAdapter storyAdapter = new StoryAdapter(this, stories);
-        storiesListView.setAdapter(storyAdapter);
+        final StoryRecAdapter storyRecAdapter = new StoryRecAdapter(stories);
+        mRecyclerView.setAdapter(storyRecAdapter);
 
-        storiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Story currentStory = storyAdapter.getItem(position);
-                Bundle bundle = new Bundle();
-                if (currentStory != null) {
-                    bundle.putString("url", currentStory.getUrl());
-                }
-                Intent intent = new Intent(getApplicationContext(), WebActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+
     }
 }
 
