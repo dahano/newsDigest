@@ -1,16 +1,13 @@
 package com.example.ofirdahan.newsdigest.Adapters;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.ofirdahan.newsdigest.Models.Story;
 import com.example.ofirdahan.newsdigest.R;
@@ -85,4 +82,5 @@ public class StoryRecAdapter extends  RecyclerView.Adapter<StoryRecAdapter.Conte
             v.getContext().startActivity(intent);
         }
     }
+
 }

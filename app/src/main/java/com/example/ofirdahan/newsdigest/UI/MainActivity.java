@@ -1,12 +1,14 @@
 package com.example.ofirdahan.newsdigest.UI;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.ofirdahan.newsdigest.Adapters.ApiClient;
@@ -24,24 +26,30 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private RecyclerView mRecyclerView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.orange));
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerViewList);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
         setNetworkCall();
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setNetworkCall();
+            }
+        });
     }
 
     private void setNetworkCall() {
-        mProgressBar.setVisibility(View.VISIBLE);
-
         RetrofitInterface retrofitInterface =
                 ApiClient.getClient().create(RetrofitInterface.class);
         Call<Story> call = retrofitInterface.listOfHits();
@@ -50,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Story> call, Response<Story> response) {
                 setStories(response.body().getHits());
+                System.out.println("Response " + response.body());
             }
 
             @Override
@@ -62,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private void setStories(List<Story> stories){
         final StoryRecAdapter storyRecAdapter = new StoryRecAdapter(stories);
         mRecyclerView.setAdapter(storyRecAdapter);
+        mSwipeRefreshLayout.setRefreshing(false);
 
 
     }
