@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:padding="12dip">
+    android:padding="12dip"
+    tools:background="#607D8B">
 
     <TextView
         android:id="@+id/storyPoints"
@@ -45,12 +46,34 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/created_at"
-        android:layout_width="0dip"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
-        android:gravity="center"
-        android:textColor="#CFD8DC"
-        tools:text="8:36 PM"/>
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:orientation="vertical"
+        android:padding="12dip"
+        tools:background="#607D8B">
+
+        <TextView
+            android:id="@+id/created_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:textColor="#CFD8DC"
+            tools:text="8:36 PM" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:paddingTop="22dp"
+            tools:rating="4" />
+
+    </LinearLayout>
+
+
 </LinearLayout>

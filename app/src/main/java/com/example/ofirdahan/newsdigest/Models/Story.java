@@ -14,7 +14,7 @@ public class Story {
     int points;
     List<Story> hits;
 
-    public Story(Long created_at_i, String title, String author, String url, int points) {
+    public Story(Long created_at_i, String title, String author, String url, int points, float rating) {
         this.created_at_i = created_at_i;
         this.title = title;
         this.author = author;
@@ -44,7 +44,6 @@ public class Story {
 
 
     public String getPoints() {
-
         return String.valueOf(points);
     }
 
