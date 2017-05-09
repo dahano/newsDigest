@@ -93,6 +93,7 @@ public class StoryRecAdapter extends  RecyclerView.Adapter<StoryRecAdapter.Conte
             bundle.putString("url", story.getUrl());
             intent.putExtras(bundle);
             v.getContext().startActivity(intent);
+            v.setBackgroundColor(v.getResources().getColor(R.color.onClickStoryItem));
         }
     }
 

@@ -6,6 +6,7 @@
     <color name="title_black_dark">#000000</color>
     <color name="background_orange_light">#FFAB19</color>
     <color name="primaryText">#D9D3BF</color>
+    <color name="onClickStoryItem">#757575</color>
 
     <color name="orange">#FF9900</color>
     <color name="green">#009900</color>
