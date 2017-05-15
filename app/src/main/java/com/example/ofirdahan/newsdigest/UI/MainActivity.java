@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,11 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.options_menu, menu);
-        return true;
-    }
+
 
     private void setNetworkCall() {
         RetrofitInterface retrofitInterface =
@@ -69,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Story> call, Response<Story> response) {
                 setStories(response.body().getHits());
-                System.out.println("Response " + response.body());
             }
 
             @Override
@@ -84,7 +80,15 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(storyRecAdapter);
         mSwipeRefreshLayout.setRefreshing(false);
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        MenuItem item = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) item.getActionView();
+        return super.onCreateOptionsMenu(menu);
     }
 }
 
