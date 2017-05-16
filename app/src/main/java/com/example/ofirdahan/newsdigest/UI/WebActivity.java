@@ -20,12 +20,6 @@ public class WebActivity extends Activity{
     private WebView mWebView;
     public Bundle getBundle = null;
 
-    public static Intent getWebActivityIntent(Context context, String url) {
-        final Bundle bundle = new Bundle();
-        bundle.putString(URL, url);
-        final Intent intent = new Intent(context, WebActivity.class);
-        return intent;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstance){

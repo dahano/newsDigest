@@ -1,7 +1,5 @@
 package com.example.ofirdahan.newsdigest.UI;
 
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,10 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.example.ofirdahan.newsdigest.Adapters.ApiClient;
 import com.example.ofirdahan.newsdigest.Adapters.RetrofitInterface;
@@ -27,10 +21,12 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Query;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static String QUERY;
     private RecyclerView mRecyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -55,6 +51,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void searchForQuery(){
+        RetrofitInterface retrofitInterface =
+                ApiClient.getClient().create(RetrofitInterface.class);
+        Call<Story> call = retrofitInterface.queryResults(QUERY);
+        call.enqueue(new Callback<Story>() {
+            @Override
+            public void onResponse(Call<Story> call, Response<Story> response) {
+                setStories(response.body().getHits());
+            }
+
+            @Override
+            public void onFailure(Call<Story> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+    }
+
 
 
     private void setNetworkCall() {
@@ -66,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Story> call, Response<Story> response) {
                 setStories(response.body().getHits());
+
             }
 
             @Override
@@ -88,6 +102,19 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.options_menu, menu);
         MenuItem item = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                QUERY = query;
+                searchForQuery();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 }
